@@ -6,4 +6,4 @@ type pbjsCallback = (err: Error|null, output?: string) => void;
  * @param {function(?Error, string=)} [callback] Optional completion callback
  * @returns {number|undefined} Exit code, if known
  */
-export function main(args: string[], callback?: pbjsCallback): number|undefined;
+export function main(args: string[], options?: { toJsType?: Function }, callback?: pbjsCallback): number|undefined;

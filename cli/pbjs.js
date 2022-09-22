@@ -16,7 +16,11 @@ var targets  = util.requireAll("./targets");
  * @param {function(?Error, string=)} [callback] Optional completion callback
  * @returns {number|undefined} Exit code, if known
  */
-exports.main = function main(args, callback) {
+exports.main = function main(args, options, callback) {
+    if (typeof options === 'function') {
+        options = null
+        callback = options
+    }
     var lintDefault = "eslint-disable " + [
         "block-scoped-var",
         "id-length",
@@ -309,7 +313,7 @@ exports.main = function main(args, callback) {
     }
 
     function callTarget() {
-        target(root, argv, function targetCallback(err, output) {
+        target(root, Object.assign(argv, options), function targetCallback(err, output) {
             if (err) {
                 if (callback)
                     return callback(err);
